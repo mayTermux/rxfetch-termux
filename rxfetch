@@ -69,7 +69,13 @@ function getUptime() {
 }
 
 function getMemoryUsage() {
-  memory="$(free --mega | sed -n -E '2s/^[^0-9]*([0-9]+) *([0-9]+).*/'"${space}"'\2 \/ \1 MB/p')"
+  #memory="$(free --mega | sed -n -E '2s/^[^0-9]*([0-9]+) *([0-9]+).*/'"${space}"'\2 \/ \1MB/p')"
+  _MEM="Mem:"
+  _GREP_ONE_ROW="$(free --mega | grep "${_MEM}")"
+  _TOTAL="$(echo ${_GREP_ONE_ROW} | awk '{print $2}')"
+  _USED="$(echo ${_GREP_ONE_ROW} | awk '{print $3}')"
+
+  memory="${_USED}MB / ${_TOTAL}MB"
 }
 
 function getDiskUsage() {
@@ -87,6 +93,7 @@ function getDiskUsage() {
 function main() {
   getCodeName
   getClientBase
+  getModel
   getDistro
   getKernel
   getTotalPackages
@@ -98,18 +105,18 @@ function main() {
 
 main
 
-echo -e "┏━━━━━━━━━━━━━━━━━━━━━┓"
-echo -e "┃  ${c1}r${c2}x${c7}f${c4}e${c5}t${c6}${c7}c${c1}h${c0}   ${c5}${c0}  ${c6}${c0}  ${c7}${c0}  ┃  ${codename}${c5}@${c0}${client_base}"
-echo -e "┠━━━━━━━━━━━━━━━━━━━━━┫"
-echo -e "┃                     ┃  ${c1}os${c0}     ${os}"
-echo -e "┃         ${c3}•${c8}_${c3}•${c0}         ┃  ${c2}ker${c0}    ${kernel}"
-echo -e "┃         ${c8}${c0}${c9}oo${c0}${c8}|${c0}         ┃  ${c4}pkgs${c0}   ${packages}"
-echo -e "┃        ${c8}/${c0}${c10} ${c0}${c8}'\'${c0}        ┃  ${c5}sh${c0}     ${shell}"
-echo -e "┃       ${c9}(${c0}${c8}\_;/${c0}${c9})${c0}        ┃  ${c6}up${c0}    ${uptime}"
-echo -e "┃                     ┃  ${c7}ram${c0}    ${memory}"
-echo -e "┃   android ${c1}${c0} termux  ┃  ${c2}disk${c0}   ${storage}"
-echo -e "┃                     ┃  ${c5}init${c0}   SystemD"
-echo -e "┗━━━━━━━━━━━━━━━━━━━━━┛  ${c1}━━━${c2}━━━${c3}━━━${c4}━━━${c5}━━━${c6}━━━${c7}━━━"
+echo -e "  ┏━━━━━━━━━━━━━━━━━━━━━━┓"
+echo -e "  ┃ ${c1}r${c2}x${c7}f${c4}e${c5}t${c6}${c7}c${c1}h${c0}      ${c5}${c0}  ${c6}${c0}  ${c7}${c0} ┃  ${codename}${c5}@${c0}${client_base}"
+echo -e "  ┠━━━━━━━━━━━━━━━━━━━━━━┫"
+echo -e "  ┃                      ┃  ${c1}phone${c0}  ${model}"
+echo -e "  ┃          ${c3}•${c8}_${c3}•${c0}         ┃  ${c2}os${c0}     ${os}"
+echo -e "  ┃          ${c8}${c0}${c9}oo${c0}${c8}|${c0}         ┃  ${c7}ker${c0}    ${kernel}"
+echo -e "  ┃         ${c8}/${c0}${c10} ${c0}${c8}'\'${c0}        ┃  ${c4}pkgs${c0}   ${packages}"
+echo -e "  ┃        ${c9}(${c0}${c8}\_;/${c0}${c9})${c0}        ┃  ${c5}sh${c0}     ${shell}"
+echo -e "  ┃                      ┃  ${c6}up${c0}    ${uptime}"
+echo -e "  ┃   android ${c1}${c0} termux   ┃  ${c1}ram${c0}    ${memory}"
+echo -e "  ┃                      ┃  ${c2}disk${c0}   ${storage}"
+echo -e "  ┗━━━━━━━━━━━━━━━━━━━━━━┛  ${c1}━━━${c2}━━━${c3}━━━${c4}━━━${c5}━━━${c6}━━━${c7}━━━"
 
 #echo -e "     •_•       "
 #echo -e "     oo|       "
