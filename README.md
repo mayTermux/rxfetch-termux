@@ -1,6 +1,6 @@
 <h1 align="center">rxfetch-termux</h1>
 
-<p align="center">rxfetch-termux is a Termux Fetch Fork of</p> [Mangeshrex/rxfetch](https://github.com/Mangeshrex/rxfetch)
+<p align="center">rxfetch-termux is a Termux Fetch Fork of <a href="https://github.com/Mangeshrex/rxfetch">Mangeshrex/rxfetch</a></p>
 
 <img src="https://i.ibb.co/w05L1Fs/Screenshot-20220319-193013-Termux.png" alt="rxfetch-termux">
 
